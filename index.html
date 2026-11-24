@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffb800" />
+  <title>AnnaSetu — Food Rescue</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    h1,h2,h3,.brand { font-family: 'Manrope', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#f7f8f5] text-[#18211b]">
+  <header class="sticky top-0 z-30 border-b border-black/5 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+      <div class="flex items-center gap-3">
+        <div class="grid h-10 w-10 place-items-center rounded-xl bg-[#ffc928] text-xl">🌾</div>
+        <div><div class="brand text-xl font-extrabold">AnnaSetu</div><div class="text-xs text-[#6c756f]">Food Rescue Network</div></div>
+      </div>
+      <nav class="hidden items-center gap-7 text-sm font-semibold md:flex">
+        <button class="text-[#ec9c00]" onclick="showView('dashboard')">Dashboard</button>
+        <button onclick="showView('donations')">Donations</button>
+        <button onclick="showView('deliveries')">Deliveries</button>
+        <button onclick="showView('impact')">Impact</button>
+      </nav>
+      <div class="flex items-center gap-3"><button class="rounded-full border p-2.5">🔔</button><button class="h-9 w-9 rounded-full bg-[#d9e6d8] text-sm font-bold">AS</button></div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-5 py-7">
+    <section id="dashboard" class="view">
+      <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
+        <div><p class="mb-1 text-sm font-bold text-[#ec9c00]">Jharkhand, India</p><h1 class="text-3xl font-extrabold">Good morning, Aarav 👋</h1><p class="mt-1 text-[#738078]">Here’s what’s happening across your food rescue network.</p></div>
+        <button onclick="openModal()" class="rounded-xl bg-[#ffc928] px-5 py-3 font-bold shadow-[0_6px_18px_rgba(236,156,0,.18)]">+ Add Donation</button>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <article class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-4 flex justify-between"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#fff4c7]">🍱</div><span class="rounded-full bg-[#edf7e9] px-2 py-1 text-xs font-bold text-[#4c8a3d]">+12%</span></div><p class="text-sm text-[#738078]">Meals Rescued</p><h2 class="mt-1 text-3xl font-extrabold">12,480</h2></article>
+        <article class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-4 flex justify-between"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#e9f5e6]">♻️</div><span class="rounded-full bg-[#edf7e9] px-2 py-1 text-xs font-bold text-[#4c8a3d]">+8%</span></div><p class="text-sm text-[#738078]">Food Waste Prevented</p><h2 class="mt-1 text-3xl font-extrabold">3,240 kg</h2></article>
+        <article class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-4 flex justify-between"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#e7f0ff]">☁️</div><span class="rounded-full bg-[#edf7e9] px-2 py-1 text-xs font-bold text-[#4c8a3d]">+15%</span></div><p class="text-sm text-[#738078]">CO₂ Emissions Saved</p><h2 class="mt-1 text-3xl font-extrabold">8.6 tonnes</h2></article>
+        <article class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-4 flex justify-between"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#f8e7ff]">🏅</div><span class="rounded-full bg-[#fff4c7] px-2 py-1 text-xs font-bold text-[#a66a00]">Gold</span></div><p class="text-sm text-[#738078]">Community Rank</p><h2 class="mt-1 text-3xl font-extrabold">#8</h2></article>
+      </div>
+
+      <div class="mt-6 grid gap-6 lg:grid-cols-[1.7fr_1fr]">
+        <section class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-5 flex items-center justify-between"><div><h2 class="text-lg font-bold">Nearby Donations</h2><p class="text-sm text-[#738078]">Available within 5 km</p></div><button onclick="showView('donations')" class="text-sm font-bold text-[#d58e00]">View all →</button></div>
+          <div id="donation-list" class="space-y-3"></div>
+        </section>
+        <section class="rounded-2xl border border-black/5 bg-white p-5"><h2 class="mb-5 text-lg font-bold">Live Rescue Map</h2><div class="relative h-64 overflow-hidden rounded-xl bg-[#e9eee6]"><div class="absolute inset-0 opacity-40" style="background-image:linear-gradient(#cfd7cb 1px,transparent 1px),linear-gradient(90deg,#cfd7cb 1px,transparent 1px);background-size:28px 28px"></div><svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 260"><path d="M25 210 C90 180,120 220,180 145 S280 130,370 60" fill="none" stroke="#f1aa18" stroke-width="5"/><path d="M20 90 C100 100,180 60,260 120 S330 220,390 175" fill="none" stroke="#68a4d6" stroke-width="3" stroke-dasharray="7 7"/></svg><div class="absolute left-[18%] top-[67%] rounded-full border-4 border-white bg-[#ffc928] p-2 shadow">🍱</div><div class="absolute left-[52%] top-[38%] rounded-full border-4 border-white bg-[#4d8f44] p-2 shadow">🚚</div><div class="absolute right-[12%] top-[18%] rounded-full border-4 border-white bg-[#6aa5d8] p-2 shadow">🏠</div></div></section>
+      </div>
+    </section>
+
+    <section id="donations" class="view hidden"><h1 class="mb-6 text-3xl font-extrabold">Available Donations</h1><div id="donation-grid" class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"></div></section>
+    <section id="deliveries" class="view hidden"><h1 class="mb-6 text-3xl font-extrabold">Active Deliveries</h1><div class="grid gap-5 lg:grid-cols-2"><article class="rounded-2xl bg-white p-6"><div class="flex justify-between"><span class="rounded-full bg-[#fff1bd] px-3 py-1 text-xs font-bold">In transit</span><span class="text-sm font-bold">8 min left</span></div><h2 class="mt-5 text-xl font-bold">The Yellow Spoon → Hope Kitchen</h2><div class="mt-5 rounded-xl bg-[#edf2eb] p-4">📍 Main Road, Ranchi<br><small>ETA 10:35 AM • Moderate traffic</small></div></article><article class="rounded-2xl bg-white p-6"><div class="flex justify-between"><span class="rounded-full bg-[#e6f4e3] px-3 py-1 text-xs font-bold">Assigned</span><span class="text-sm font-bold">14 km</span></div><h2 class="mt-5 text-xl font-bold">Wedding Plaza → Community Shelter</h2><div class="mt-5 rounded-xl bg-[#edf2eb] p-4">📍 Morabadi, Ranchi<br><small>Pickup at 11:20 AM</small></div></article></div></section>
+    <section id="impact" class="view hidden"><h1 class="mb-6 text-3xl font-extrabold">Community Impact</h1><div class="rounded-2xl bg-[#173e2b] p-8 text-white"><p class="text-[#b8d2c1]">Together, we've rescued</p><h2 class="mt-2 text-5xl font-extrabold">48,920 meals</h2><p class="mt-5 max-w-xl text-[#d4e2d8]">AnnaSetu partners across Jharkhand are turning surplus food into dignity, nutrition and measurable climate impact.</p></div></section>
+  </main>
+
+  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4"><div class="w-full max-w-lg rounded-2xl bg-white p-6"><div class="mb-5 flex justify-between"><h2 class="text-xl font-bold">Post a Donation</h2><button onclick="closeModal()">✕</button></div><form onsubmit="event.preventEventDefault();closeModal();" class="space-y-4"><input required class="w-full rounded-xl border p-3" placeholder="Food / meal name"><div class="grid grid-cols-2 gap-3"><input type="number" class="rounded-xl border p-3" placeholder="Servings"><select class="rounded-xl border p-3"><option>Vegetarian</option><option>Non-Veg</option></select></div><input class="w-full rounded-xl border p-3" placeholder="Pickup address / PIN"><div class="grid grid-cols-2 gap-3"><input type="time" class="rounded-xl border p-3"><input type="datetime-local" class="rounded-xl border p-3"></div><button class="w-full rounded-xl bg-[#ffc928] py-3 font-bold">Publish Donation</button></form></div></div>
+
+  <script>
+    const donations=[
+      {name:'Fresh Rice & Dal',org:'The Yellow Spoon',qty:'25 servings',time:'Best before 2 hrs',dist:'1.2 km',type:'Veg'},
+      {name:'Packed Vegetarian Thali',org:'Wedding Plaza',qty:'40 servings',time:'Pickup by 11:30',dist:'2.8 km',type:'Veg'},
+      {name:'Roti, Sabzi & Kheer',org:'Saffron Caterers',qty:'18 servings',time:'Best before 3 hrs',dist:'4.1 km',type:'Veg'}
+    ];
+    function card(d,compact=false){return `<article class="${compact?'rounded-xl border p-4':'rounded-2xl border bg-white p-5'}"><div class="flex justify-between gap-3"><div><span class="rounded-full bg-[#edf7e9] px-2 py-1 text-xs font-bold text-[#4b803d]">${d.type}</span><h3 class="mt-3 font-bold">${d.name}</h3><p class="text-sm text-[#738078]">${d.org}</p></div><div class="text-right"><p class="font-bold">${d.qty}</p><p class="mt-1 text-xs text-[#738078]">${d.dist}</p></div></div><div class="mt-4 flex items-center justify-between border-t pt-3"><span class="text-xs text-[#a56e00]">● ${d.time}</span><button onclick="claim(this)" class="rounded-lg bg-[#ffc928] px-3 py-2 text-xs font-bold">Claim</button></div></article>`}
+    donationList.innerHTML=donations.map(d=>card(d,true)).join(''); donationGrid.innerHTML=donations.map(d=>card(d)).join('');
+    function claim(btn){btn.textContent='Requested ✓';btn.className='rounded-lg bg-[#e7f4e5] px-3 py-2 text-xs font-bold text-[#4b803d]'}
+    function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));document.getElementById(id).classList.remove('hidden')}
+    function openModal(){document.getElementById('modal').classList.remove('hidden');document.getElementById('modal').classList.add('flex')}
+    function closeModal(){document.getElementById('modal').classList.add('hidden');document.getElementById('modal').classList.remove('flex')}
+  </script>
+</body>
+</html>

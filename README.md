@@ -1,1 +1,3 @@
-#anasetu
+# AnnaSetu
+
+Food Rescue & Redistribution Platform
