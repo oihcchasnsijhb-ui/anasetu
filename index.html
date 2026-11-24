@@ -3,75 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#ffb800" />
+  <meta name="theme-color" content="#f2aa21" />
   <title>AnnaSetu — Food Rescue</title>
+  <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'DM Sans', sans-serif; }
-    h1,h2,h3,.brand { font-family: 'Manrope', sans-serif; }
+    :body{font-family:'DM Sans',sans-serif}.brand,h1,h2,h3{font-family:'Manrope',sans-serif}
+    body{font-family:'DM Sans',sans-serif}.brand,h1,h2,h3{font-family:'Manrope',sans-serif}
   </style>
 </head>
-<body class="bg-[#f7f8f5] text-[#18211b]">
-  <header class="sticky top-0 z-30 border-b border-black/5 bg-white/95 backdrop-blur">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-      <div class="flex items-center gap-3">
-        <div class="grid h-10 w-10 place-items-center rounded-xl bg-[#ffc928] text-xl">🌾</div>
-        <div><div class="brand text-xl font-extrabold">AnnaSetu</div><div class="text-xs text-[#6c756f]">Food Rescue Network</div></div>
-      </div>
-      <nav class="hidden items-center gap-7 text-sm font-semibold md:flex">
-        <button class="text-[#ec9c00]" onclick="showView('dashboard')">Dashboard</button>
-        <button onclick="showView('donations')">Donations</button>
-        <button onclick="showView('deliveries')">Deliveries</button>
-        <button onclick="showView('impact')">Impact</button>
-      </nav>
-      <div class="flex items-center gap-3"><button class="rounded-full border p-2.5">🔔</button><button class="h-9 w-9 rounded-full bg-[#d9e6d8] text-sm font-bold">AS</button></div>
+<body class="bg-[#f6f7f3] text-[#1d2922]">
+  <div id="auth" class="min-h-screen bg-[#fffdf7]">
+    <div class="mx-auto grid min-h-screen max-w-6xl lg:grid-cols-2">
+      <section class="hidden items-center justify-center bg-[#173d2b] p-12 text-white lg:flex"><div class="max-w-md"><div class="mb-12 flex items-center gap-3"><div class="grid h-12 w-12 place-items-center rounded-2xl bg-[#ffc83d] text-2xl">🌾</div><span class="brand text-2xl font-extrabold">AnnaSetu</span></div><h1 class="text-5xl leading-tight">Every meal matters.</h1><p class="mt-5 text-lg text-[#bfd1c5]">Connect surplus food with communities that need it.</p><div class="mt-10 grid grid-cols-3 gap-3"><div class="rounded-xl bg-white/10 p-4"><b>48K</b><p class="text-xs text-[#bfd1c5]">Meals rescued</p></div><div class="rounded-xl bg-white/10 p-4"><b>320</b><p class="text-xs text-[#bfd1c5]">Volunteers</p></div><div class="rounded-xl bg-white/10 p-4"><b>86%</b><p class="text-xs text-[#bfd1c5]">Rescue success</p></div></div></div></section>
+      <section class="flex items-center justify-center p-6"><div class="w-full max-w-md"><div class="mb-10 flex items-center gap-3 lg:hidden"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#ffc83d] text-xl">🌾</div><b class="brand text-xl">AnnaSetu</b></div><p class="mb-2 text-sm font-bold text-[#dc9608]">WELCOME BACK</p><h1 class="text-3xl font-extrabold">Verify your phone</h1><p class="mt-2 text-[#778279]">We’ll send a one-time password to your mobile.</p>
+        <div id="phoneStep" class="mt-8"><label class="text-sm font-bold">Mobile number</label><div class="mt-2 flex overflow-hidden rounded-xl border bg-white"><select class="border-r bg-[#fafafa] px-3 text-sm"><option>🇮🇳 +91</option><option>🇺🇸 +1</option><option>🇬🇧 +44</option></select><input id="phone" type="tel" class="w-full p-4 outline-none" placeholder="98765 43210"></div><button onclick="sendOtp()" class="mt-5 w-full rounded-xl bg-[#f7b91d] py-4 font-bold shadow">Send OTP</button></div>
+        <div id="otpStep" class="mt-8 hidden"><label class="text-sm font-bold">Enter 6-digit OTP</label><input id="otp" maxlength="6" inputmode="numeric" class="mt-2 w-full rounded-xl border p-4 text-center text-2xl tracking-[.6em]" placeholder="••••••"><button onclick="verifyOtp()" class="mt-5 w-full rounded-xl bg-[#f7b91d] py-4 font-bold">Verify & Continue</button><button onclick="backPhone()" class="mt-4 w-full text-sm text-[#778279]">Change number</button></div>
+      </div></section>
     </div>
-  </header>
+  </div>
 
-  <main class="mx-auto max-w-7xl px-5 py-7">
-    <section id="dashboard" class="view">
-      <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
-        <div><p class="mb-1 text-sm font-bold text-[#ec9c00]">Jharkhand, India</p><h1 class="text-3xl font-extrabold">Good morning, Aarav 👋</h1><p class="mt-1 text-[#738078]">Here’s what’s happening across your food rescue network.</p></div>
-        <button onclick="openModal()" class="rounded-xl bg-[#ffc928] px-5 py-3 font-bold shadow-[0_6px_18px_rgba(236,156,0,.18)]">+ Add Donation</button>
-      </div>
+  <div id="roles" class="hidden min-h-screen p-5"><div class="mx-auto max-w-5xl py-10"><h1 class="text-center text-3xl font-extrabold">How will you use AnnaSetu?</h1><p class="mt-2 text-center text-[#778279]">Choose a role to personalize your experience</p><div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><button onclick="enterApp('Donor')" class="rounded-2xl border bg-white p-6 text-left transition hover:-translate-y-1 hover:border-[#f5ba31]"><div class="text-4xl">🍱</div><h2 class="mt-5 text-xl">Food Donor</h2><p class="mt-2 text-sm text-[#778279]">Restaurant, event or household</p></button><button onclick="enterApp('Volunteer')" class="rounded-2xl border bg-white p-6 text-left transition hover:-translate-y-1 hover:border-[#f5ba31]"><div class="text-4xl">🛵</div><h2 class="mt-5 text-xl">Volunteer</h2><p class="mt-2 text-sm text-[#778279]">Pickup and deliver food</p></button><button onclick="enterApp('NGO')" class="rounded-2xl border bg-white p-6 text-left transition hover:-translate-y-1 hover:border-[#f5ba31]"><div class="text-4xl">🏠</div><h2 class="mt-5 text-xl">NGO / Receiver</h2><p class="mt-2 text-sm text-[#778279]">Request and receive donations</p></button><button onclick="enterApp('Admin')" class="rounded-2xl border bg-white p-6 text-left transition hover:-translate-y-1 hover:border-[#f5ba31]"><div class="text-4xl">⚙️</div><h2 class="mt-5 text-xl">Admin</h2><p class="mt-2 text-sm text-[#778279]">Manage platform operations</p></button></div></div></div>
 
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <article class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-4 flex justify-between"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#fff4c7]">🍱</div><span class="rounded-full bg-[#edf7e9] px-2 py-1 text-xs font-bold text-[#4c8a3d]">+12%</span></div><p class="text-sm text-[#738078]">Meals Rescued</p><h2 class="mt-1 text-3xl font-extrabold">12,480</h2></article>
-        <article class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-4 flex justify-between"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#e9f5e6]">♻️</div><span class="rounded-full bg-[#edf7e9] px-2 py-1 text-xs font-bold text-[#4c8a3d]">+8%</span></div><p class="text-sm text-[#738078]">Food Waste Prevented</p><h2 class="mt-1 text-3xl font-extrabold">3,240 kg</h2></article>
-        <article class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-4 flex justify-between"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#e7f0ff]">☁️</div><span class="rounded-full bg-[#edf7e9] px-2 py-1 text-xs font-bold text-[#4c8a3d]">+15%</span></div><p class="text-sm text-[#738078]">CO₂ Emissions Saved</p><h2 class="mt-1 text-3xl font-extrabold">8.6 tonnes</h2></article>
-        <article class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-4 flex justify-between"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#f8e7ff]">🏅</div><span class="rounded-full bg-[#fff4c7] px-2 py-1 text-xs font-bold text-[#a66a00]">Gold</span></div><p class="text-sm text-[#738078]">Community Rank</p><h2 class="mt-1 text-3xl font-extrabold">#8</h2></article>
-      </div>
+  <div id="app" class="hidden">
+    <header class="sticky top-0 z-30 border-b bg-white/95 px-5 py-3 backdrop-blur"><div class="mx-auto flex max-w-7xl items-center justify-between"><div class="flex items-center gap-3"><div class="grid h-10 w-10 place-items-center rounded-xl bg-[#ffc83d]">🌾</div><div><b class="brand">AnnaSetu</b><p id="roleLabel" class="text-xs text-[#778279]"></p></div></div><div class="flex items-center gap-2"><button onclick="toggleLanguage()" class="rounded-lg border px-3 py-2 text-sm" id="langBtn">EN / हिं</button><button class="rounded-full border p-2.5">🔔</button><button onclick="logout()" class="h-9 w-9 rounded-full bg-[#dce8de] text-xs font-bold">AS</button></div></div></header>
+    <main class="mx-auto max-w-7xl p-5"><section id="dashboard"><div class="mb-6 flex flex-wrap items-end justify-between gap-4"><div><p class="text-sm font-bold text-[#dc9608]">JHARKHAND, INDIA</p><h1 id="greeting" class="mt-1 text-3xl">Good morning, Aarav 👋</h1></div><button onclick="openModal()" class="rounded-xl bg-[#ffc83d] px-5 py-3 font-bold">+ Post Donation</button></div><div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><div class="rounded-2xl bg-white p-5"><p class="text-sm text-[#778279]">Meals rescued</p><b class="mt-2 block text-3xl">12,480</b></div><div class="rounded-2xl bg-white p-5"><p class="text-sm text-[#778279]">Waste prevented</p><b class="mt-2 block text-3xl">3,240 kg</b></div><div class="rounded-2xl bg-white p-5"><p class="text-sm text-[#778279]">CO₂ saved</p><b class="mt-2 block text-3xl">8.6 t</b></div><div class="rounded-2xl bg-white p-5"><p class="text-sm text-[#778279]">Community rank</p><b class="mt-2 block text-3xl">#8</b></div></div><div class="mt-6 grid gap-5 lg:grid-cols-[1.5fr_1fr]"><section class="rounded-2xl bg-white p-5"><div class="flex justify-between"><h2 class="text-lg">Nearby Donations</h2><span class="text-sm font-bold text-[#dc9608]">View all</span></div><div id="donations" class="mt-4 space-y-3"></div></section><section class="rounded-2xl bg-white p-5"><h2 class="text-lg">Live Rescue Map</h2><div class="relative mt-4 h-72 overflow-hidden rounded-xl bg-[#e7ede6]"><div class="absolute left-[18%] top-[65%] rounded-full border-4 border-white bg-[#ffc83d] p-3 shadow">🍱</div><div class="absolute left-[52%] top-[38%] rounded-full border-4 border-white bg-[#4e8e50] p-3 shadow">🛵</div><div class="absolute right-[12%] top-[18%] rounded-full border-4 border-white bg-[#73a8d2] p-3 shadow">🏠</div><svg class="h-full w-full" viewBox="0 0 500 300"><path d="M90 220 C180 190 210 160 290 120 S390 80 440 70" fill="none" stroke="#f1ad20" stroke-width="5"/><path d="M40 100 C150 130 260 70 380 140 S430 220 470 200" fill="none" stroke="#70a2c9" stroke-width="3" stroke-dasharray="8 8"/></svg></div></section></div></section></main>
+  </div>
 
-      <div class="mt-6 grid gap-6 lg:grid-cols-[1.7fr_1fr]">
-        <section class="rounded-2xl border border-black/5 bg-white p-5"><div class="mb-5 flex items-center justify-between"><div><h2 class="text-lg font-bold">Nearby Donations</h2><p class="text-sm text-[#738078]">Available within 5 km</p></div><button onclick="showView('donations')" class="text-sm font-bold text-[#d58e00]">View all →</button></div>
-          <div id="donation-list" class="space-y-3"></div>
-        </section>
-        <section class="rounded-2xl border border-black/5 bg-white p-5"><h2 class="mb-5 text-lg font-bold">Live Rescue Map</h2><div class="relative h-64 overflow-hidden rounded-xl bg-[#e9eee6]"><div class="absolute inset-0 opacity-40" style="background-image:linear-gradient(#cfd7cb 1px,transparent 1px),linear-gradient(90deg,#cfd7cb 1px,transparent 1px);background-size:28px 28px"></div><svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 260"><path d="M25 210 C90 180,120 220,180 145 S280 130,370 60" fill="none" stroke="#f1aa18" stroke-width="5"/><path d="M20 90 C100 100,180 60,260 120 S330 220,390 175" fill="none" stroke="#68a4d6" stroke-width="3" stroke-dasharray="7 7"/></svg><div class="absolute left-[18%] top-[67%] rounded-full border-4 border-white bg-[#ffc928] p-2 shadow">🍱</div><div class="absolute left-[52%] top-[38%] rounded-full border-4 border-white bg-[#4d8f44] p-2 shadow">🚚</div><div class="absolute right-[12%] top-[18%] rounded-full border-4 border-white bg-[#6aa5d8] p-2 shadow">🏠</div></div></section>
-      </div>
-    </section>
-
-    <section id="donations" class="view hidden"><h1 class="mb-6 text-3xl font-extrabold">Available Donations</h1><div id="donation-grid" class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"></div></section>
-    <section id="deliveries" class="view hidden"><h1 class="mb-6 text-3xl font-extrabold">Active Deliveries</h1><div class="grid gap-5 lg:grid-cols-2"><article class="rounded-2xl bg-white p-6"><div class="flex justify-between"><span class="rounded-full bg-[#fff1bd] px-3 py-1 text-xs font-bold">In transit</span><span class="text-sm font-bold">8 min left</span></div><h2 class="mt-5 text-xl font-bold">The Yellow Spoon → Hope Kitchen</h2><div class="mt-5 rounded-xl bg-[#edf2eb] p-4">📍 Main Road, Ranchi<br><small>ETA 10:35 AM • Moderate traffic</small></div></article><article class="rounded-2xl bg-white p-6"><div class="flex justify-between"><span class="rounded-full bg-[#e6f4e3] px-3 py-1 text-xs font-bold">Assigned</span><span class="text-sm font-bold">14 km</span></div><h2 class="mt-5 text-xl font-bold">Wedding Plaza → Community Shelter</h2><div class="mt-5 rounded-xl bg-[#edf2eb] p-4">📍 Morabadi, Ranchi<br><small>Pickup at 11:20 AM</small></div></article></div></section>
-    <section id="impact" class="view hidden"><h1 class="mb-6 text-3xl font-extrabold">Community Impact</h1><div class="rounded-2xl bg-[#173e2b] p-8 text-white"><p class="text-[#b8d2c1]">Together, we've rescued</p><h2 class="mt-2 text-5xl font-extrabold">48,920 meals</h2><p class="mt-5 max-w-xl text-[#d4e2d8]">AnnaSetu partners across Jharkhand are turning surplus food into dignity, nutrition and measurable climate impact.</p></div></section>
-  </main>
-
-  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4"><div class="w-full max-w-lg rounded-2xl bg-white p-6"><div class="mb-5 flex justify-between"><h2 class="text-xl font-bold">Post a Donation</h2><button onclick="closeModal()">✕</button></div><form onsubmit="event.preventEventDefault();closeModal();" class="space-y-4"><input required class="w-full rounded-xl border p-3" placeholder="Food / meal name"><div class="grid grid-cols-2 gap-3"><input type="number" class="rounded-xl border p-3" placeholder="Servings"><select class="rounded-xl border p-3"><option>Vegetarian</option><option>Non-Veg</option></select></div><input class="w-full rounded-xl border p-3" placeholder="Pickup address / PIN"><div class="grid grid-cols-2 gap-3"><input type="time" class="rounded-xl border p-3"><input type="datetime-local" class="rounded-xl border p-3"></div><button class="w-full rounded-xl bg-[#ffc928] py-3 font-bold">Publish Donation</button></form></div></div>
+  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4"><div class="w-full max-w-lg rounded-2xl bg-white p-6"><div class="flex justify-between"><h2 class="text-xl">Post a Food Donation</h2><button onclick="closeModal()">✕</button></div><form onsubmit="event.preventDefault();closeModal();" class="mt-5 space-y-3"><input required class="w-full rounded-xl border p-3" placeholder="Food name"><div class="grid grid-cols-2 gap-3"><input type="number" class="rounded-xl border p-3" placeholder="Servings"><select class="rounded-xl border p-3"><option>Vegetarian</option><option>Non-vegetarian</option></select></div><input class="w-full rounded-xl border p-3" placeholder="Pickup address or PIN"><div class="grid grid-cols-2 gap-3"><input type="time" class="rounded-xl border p-3"><input type="datetime-local" class="rounded-xl border p-3"></div><button class="w-full rounded-xl bg-[#ffc83d] py-3 font-bold">Publish Donation</button></form></div></div>
 
   <script>
-    const donations=[
-      {name:'Fresh Rice & Dal',org:'The Yellow Spoon',qty:'25 servings',time:'Best before 2 hrs',dist:'1.2 km',type:'Veg'},
-      {name:'Packed Vegetarian Thali',org:'Wedding Plaza',qty:'40 servings',time:'Pickup by 11:30',dist:'2.8 km',type:'Veg'},
-      {name:'Roti, Sabzi & Kheer',org:'Saffron Caterers',qty:'18 servings',time:'Best before 3 hrs',dist:'4.1 km',type:'Veg'}
-    ];
-    function card(d,compact=false){return `<article class="${compact?'rounded-xl border p-4':'rounded-2xl border bg-white p-5'}"><div class="flex justify-between gap-3"><div><span class="rounded-full bg-[#edf7e9] px-2 py-1 text-xs font-bold text-[#4b803d]">${d.type}</span><h3 class="mt-3 font-bold">${d.name}</h3><p class="text-sm text-[#738078]">${d.org}</p></div><div class="text-right"><p class="font-bold">${d.qty}</p><p class="mt-1 text-xs text-[#738078]">${d.dist}</p></div></div><div class="mt-4 flex items-center justify-between border-t pt-3"><span class="text-xs text-[#a56e00]">● ${d.time}</span><button onclick="claim(this)" class="rounded-lg bg-[#ffc928] px-3 py-2 text-xs font-bold">Claim</button></div></article>`}
-    donationList.innerHTML=donations.map(d=>card(d,true)).join(''); donationGrid.innerHTML=donations.map(d=>card(d)).join('');
-    function claim(btn){btn.textContent='Requested ✓';btn.className='rounded-lg bg-[#e7f4e5] px-3 py-2 text-xs font-bold text-[#4b803d]'}
-    function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));document.getElementById(id).classList.remove('hidden')}
-    function openModal(){document.getElementById('modal').classList.remove('hidden');document.getElementById('modal').classList.add('flex')}
-    function closeModal(){document.getElementById('modal').classList.add('hidden');document.getElementById('modal').classList.remove('flex')}
+    const items=[['Fresh Rice & Dal','The Yellow Spoon','25 servings','1.2 km','2 hrs','Veg'],['Packed Vegetarian Thali','Wedding Plaza','40 servings','2.8 km','11:30','Veg'],['Roti, Sabzi & Kheer','Saffron Caterers','18 servings','4.1 km','3 hrs','Veg']];
+    function sendOtp(){if(!document.querySelector('#phone').value.trim()){document.querySelector('#phone').focus();return}phoneStep.classList.add('hidden');otpStep.classList.remove('hidden')}
+    function backPhone(){otpStep.classList.add('hidden');phoneStep.classList.remove('hidden')}
+    function verifyOtp(){auth.classList.add('hidden');roles.classList.remove('hidden')}
+    function enterApp(role){roles.classList.add('hidden');app.classList.remove('hidden');roleLabel.textContent=role+' account'}
+    function logout(){app.classList.add('hidden');auth.classList.remove('hidden')}
+    function openModal(){modal.classList.remove('hidden');modal.classList.add('flex')}function closeModal(){modal.classList.add('hidden');modal.classList.remove('flex')}
+    function toggleLanguage(){langBtn.textContent=langBtn.textContent.includes('EN')?'हिं / EN':'EN / हिं';greeting.textContent=langBtn.textContent.includes('हिं')?'सुप्रभात, आरव 👋':'Good morning, Aarav 👋'}
+    donations.innerHTML=items.map(i=>`<article class="rounded-xl border p-4"><div class="flex justify-between"><div><span class="rounded-full bg-[#edf6e9] px-2 py-1 text-xs font-bold text-[#4d8141]">${i[5]}</span><h3 class="mt-2 font-bold">${i[0]}</h3><p class="text-sm text-[#778279]">${i[1]}</p></div><div class="text-right"><b>${i[2]}</b><p class="text-xs text-[#778279]">${i[3]}</p></div></div><div class="mt-3 flex justify-between border-t pt-3"><small class="text-[#b27a00]">● Before ${i[4]}</small><button onclick="this.textContent='Requested ✓';this.className='rounded-lg bg-[#e7f3e5] px-3 py-2 text-xs font-bold'" class="rounded-lg bg-[#ffc83d] px-3 py-2 text-xs font-bold">Claim</button></div></article>`).join('');
+    if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
   </script>
 </body>
 </html>
